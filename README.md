@@ -5,7 +5,11 @@
 
 # Synapse Layer × LangGraph
 
-> **Persistent memory for LangGraph agents. Cross-session. Encrypted. Governed.**
+> **RAG retrieves. Synapse remembers.**
+
+**Persistent memory infrastructure for AI agents — AES-256-GCM encrypted at rest, semantic search, MCP-native.**
+
+LangGraph checkpoint saver backed by Synapse Layer. Persists agent state across sessions with AES-256-GCM encryption at rest and per-operation random IV.
 
 ---
 
@@ -46,7 +50,7 @@ print(result)  # {"messages": ["done"]}
 # Next invocation with same thread_id recovers state.
 ```
 
-Get your token: [synapselayer.org](https://synapselayer.org) → Dashboard → Connect
+Get your token: [forge.synapselayer.org](https://forge.synapselayer.org) → Dashboard → Connect
 
 ---
 
@@ -55,13 +59,12 @@ Get your token: [synapselayer.org](https://synapselayer.org) → Dashboard → C
 ```
 LangGraph Agent
     │
-    ├── put()      → serialize state → Synapse Layer (encrypted)
+    ├── put()      → serialize state → Synapse Layer (encrypted at rest)
     ├── get_tuple() → recall state    → deserialize → resume
     └── put_writes()→ no-op (MVP)
 
 Session 1 ─── save ───┐
-                       │ Synapse Layer (AES-256-GCM)
-                       │ Server never sees plaintext
+                       │ Synapse Layer (AES-256-GCM at rest)
 Session 2 ─── recall ─┘
 ```
 
@@ -79,20 +82,20 @@ Session 2 ─── recall ─┘
 
 ---
 
-## Why Synapse
+## Related Projects
 
-> **RAG retrieves. Synapse remembers.**
-
-Synapse Layer is the State Continuity Layer for AI agents.
-Persistent, encrypted, cross-agent memory.
-Server never sees plaintext.
-Designed for LGPD/GDPR alignment.
+| Project | Description |
+|---------|-------------|
+| [synapse-layer](https://github.com/SynapseLayer/synapse-layer) | Core server — MCP endpoint, encryption engine, pgvector indexing |
+| [synapse-sdk-python](https://github.com/SynapseLayer/synapse-sdk-python) | Python SDK — LangChain, CrewAI, and A2A protocol adapters |
+| [synapse-layer-skill](https://github.com/SynapseLayer/synapse-layer-skill) | MCP skill configuration for Claude Desktop, Cursor, Windsurf |
 
 ---
 
 ## Links
 
 - Website: [synapselayer.org](https://synapselayer.org)
+- Forge (Dashboard): [forge.synapselayer.org](https://forge.synapselayer.org)
 - PyPI: [pypi.org/project/synapse-layer](https://pypi.org/project/synapse-layer/)
 - Core Repo: [github.com/SynapseLayer/synapse-layer](https://github.com/SynapseLayer/synapse-layer)
 - MCP Endpoint: `https://forge.synapselayer.org/api/mcp`
