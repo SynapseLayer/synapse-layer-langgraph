@@ -5,6 +5,10 @@
 
 # Synapse Layer × LangGraph
 
+> **EXPERIMENTAL — not for production.** `put_writes()` is a no-op in this MVP,
+> reads are fail-open and writes are fail-closed. Checkpoint state is not the
+> same product or retention policy as curated memory. Use only for prototypes.
+
 > **RAG retrieves. Synapse remembers.**
 
 **Persistent memory infrastructure for AI agents — AES-256-GCM encrypted at rest, semantic search, MCP-native.**
@@ -15,9 +19,15 @@ LangGraph checkpoint saver backed by Synapse Layer. Persists agent state across 
 
 ## Install
 
+This package is **not published on PyPI yet**. Install from source:
+
 ```bash
-pip install synapse-layer langgraph
+git clone https://github.com/SynapseLayer/synapse-layer-langgraph
+cd synapse-layer-langgraph
+pip install -e .
 ```
+
+Requires Python 3.10+.
 
 ## Usage
 
@@ -69,6 +79,15 @@ Session 2 ─── recall ─┘
 ```
 
 ---
+
+## Status & Limitations
+
+- **Experimental:** API and persistence format may change.
+- `put_writes()` is a no-op — intermediate writes are bundled in `put()`.
+- `list()` returns an empty iterator.
+- Reads are fail-open; writes are fail-closed.
+- Checkpoint state is not the same product or retention policy as curated memory.
+- No production support or compatibility guarantee.
 
 ## Design Decisions
 
